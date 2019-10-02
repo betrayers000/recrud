@@ -26,3 +26,26 @@ def delete(request, id):
     todo = Todo.objects.get(id=id)
     todo.delete()
     return redirect('/todos/')
+
+def edit(reqeust, id):
+    todo = Todo.objects.get(id=id)
+    context = {
+        'todo': todo
+    }
+    return render(reqeust, 'edit.html', context)
+
+def update(reqeust, id):
+    title = reqeust.GET.get("title")
+    due_date = reqeust.GET.get("duedate")
+    todo = Todo.objects.get(id=id) 
+    todo.title = title
+    todo.due_date = due_date
+    todo.save()
+    return redirect('/todos/')
+
+def detail(reqeust, id):
+    todo = Todo.objects.get(id=id)
+    context = {
+        'todo': todo,
+    }
+    return render(reqeust, 'detail.html', context)
